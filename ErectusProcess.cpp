@@ -81,6 +81,7 @@ bool ErectusProcess::Rpm(const std::uintptr_t src, void* dst, const size_t size)
 bool ErectusProcess::Wpm(const std::uintptr_t dst, const void* src, const size_t size)
 {
 	return WriteProcessMemory(handle, reinterpret_cast<void*>(dst), src, size, nullptr);
+	//return false;
 }
 
 std::uintptr_t ErectusProcess::AllocEx(const size_t size)
@@ -195,7 +196,7 @@ bool ErectusProcess::AttachToProcess(const DWORD processId)
 		return false;
 	}
 
-	handle = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
+	handle = OpenProcess(PROCESS_VM_OPERATION| PROCESS_VM_READ| PROCESS_VM_WRITE, false, pid);
 	if (handle == nullptr || !HwndValid(processId))
 	{
 		SetProcessError(2, "Process State: HANDLE invalid");
