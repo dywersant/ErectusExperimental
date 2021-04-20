@@ -18,6 +18,7 @@ void ErectusProcess::SetProcessError(const int errorId, const char* error)
 
 void ErectusProcess::ResetProcessData()
 {
+	if(processErrorId!=2)
 	SetProcessError(0, "Process State: No process selected");
 
 	if (Threads::threadCreationState)
@@ -81,7 +82,6 @@ bool ErectusProcess::Rpm(const std::uintptr_t src, void* dst, const size_t size)
 bool ErectusProcess::Wpm(const std::uintptr_t dst, const void* src, const size_t size)
 {
 	return WriteProcessMemory(handle, reinterpret_cast<void*>(dst), src, size, nullptr);
-	//return false;
 }
 
 std::uintptr_t ErectusProcess::AllocEx(const size_t size)
@@ -185,7 +185,10 @@ bool ErectusProcess::AttachToProcess(const DWORD processId)
 	ResetProcessData();
 
 	if (processId == 0)
+	{
+		SetProcessError(2, "Process State: ProcessID invalid");
 		return false;
+	}
 
 	pid = processId;
 
@@ -196,7 +199,7 @@ bool ErectusProcess::AttachToProcess(const DWORD processId)
 		return false;
 	}
 
-	handle = OpenProcess(PROCESS_VM_OPERATION| PROCESS_VM_READ| PROCESS_VM_WRITE, false, pid);
+	handle = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
 	if (handle == nullptr || !HwndValid(processId))
 	{
 		SetProcessError(2, "Process State: HANDLE invalid");

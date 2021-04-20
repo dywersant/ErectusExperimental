@@ -547,7 +547,7 @@ void Gui::ProcessMenu()
 	ImGui::SetWindowSize(ImVec2(384, 224));
 
 	ImGui::SetNextItemWidth(-16.f);
-	auto processText = ErectusProcess::pid ? "Fallout76.exe - " + std::to_string(ErectusProcess::pid) : "No  process selected.";
+	auto processText = ErectusProcess::pid ? "Fallout76.exe - " + std::to_string(ErectusProcess::pid) : "No process selected.";
 	if (ImGui::BeginCombo("###ProcessList", processText.c_str()))
 	{
 		for (auto item : ErectusProcess::GetProcesses())

@@ -16,12 +16,5 @@ public:
 	char padding00Ac[0x84]{};
 	float viewMatrix[4][4]{};//0x130
 
-	//char pad_0000[112]; //0x0000
-	//Vector3 forward; //0x0070
-	//char pad_007C[36]; //0x007C
-	//Vector3 origin; //0x00A0
-	//char pad_00AC[52]; //0x00AC
-	//float viewMatrix[4][4]{}; //0x00E0
-
 };
 

@@ -1,5 +1,4 @@
 #include "utils.h"
-
 #include <algorithm>
 
 void Utils::ValidateRgb(float* value)
